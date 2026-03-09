@@ -55,61 +55,61 @@ function Home() {
 
           </div>
           <div className='col-lg-1'></div>
-          <div className='col-lg-5'>
-            <div className='row'>
+          <div className='col-lg-5 p-2'>
+            <div className='row p-2'>
               <div className='col-lg-3'>
-                <img width={'100%'} src="/person1.webp" alt="" />
+                <img width={'100%'} height={'80px'} src="/person1.png" alt="" />
               </div>
               <div className='col-lg-3'>
-                <img  width={'100%'} src="/person1.webp" alt="" />
+                <img width={'100%'} height={'80px'} src="/person2.png" alt="" />
               </div>
               <div className='col-lg-3'>
-                <img  width={'100%'} src="/person1.webp" alt="" />
+                <img width={'100%'} height={'80px'} src="/person3.png" alt="" />
               </div>
               <div className='col-lg-3'>
-                <img  width={'100%'} src="/person1.webp" alt="" />
-              </div>
-            </div>
-            <div className='row'>
-              <div className='col-lg-3'>
-                <img width={'100%'} src="/person1.webp" alt="" />
-              </div>
-              <div className='col-lg-3'>
-                <img width={'100%'} src="/person1.webp" alt="" />
-              </div>
-              <div className='col-lg-3'>
-                <img width={'100%'} src="/person1.webp" alt="" />
-              </div>
-              <div className='col-lg-3'>
-                <img width={'100%'} src="/person1.webp" alt="" />
+                <img width={'100%'} height={'80px'} src="/person4.png" alt="" />
               </div>
             </div>
-            <div className='row'>
+            <div className='row p-2'>
               <div className='col-lg-3'>
-                <img width={'100%'} src="/person1.webp" alt="" />
+                <img width={'100%'} height={'80px'} src="/person5.png" alt="" />
               </div>
               <div className='col-lg-3'>
-                <img width={'100%'} src="/person1.webp" alt="" />
+                <img width={'100%'} height={'80px'} src="/person6.jpg" alt="" />
               </div>
               <div className='col-lg-3'>
-                <img width={'100%'} src="/person1.webp" alt="" />
+                <img width={'100%'} height={'80px'} src="/person7.jpg" alt="" />
               </div>
               <div className='col-lg-3'>
-                <img width={'100%'} src="/person1.webp" alt="" />
+                <img width={'100%'} height={'80px'} src="/person8.jpg" alt="" />
               </div>
             </div>
-            <div className='row'>
+            <div className='row p-2'>
               <div className='col-lg-3'>
-                <img width={'100%'} src="/person1.webp" alt="" />
+                <img width={'100%'} height={'80px'} src="/person9.jpg" alt="" />
               </div>
               <div className='col-lg-3'>
-                <img width={'100%'} src="/person1.webp" alt="" />
+                <img width={'100%'} height={'80px'} src="/person10.webp" alt="" />
               </div>
               <div className='col-lg-3'>
-                <img width={'100%'} src="/person1.webp" alt="" />
+                <img width={'100%'} height={'80px'} src="/person11.webp" alt="" />
               </div>
               <div className='col-lg-3'>
-                <img width={'100%'} src="/person1.webp" alt="" />
+                <img width={'100%'} height={'80px'} src="/person12.jpg" alt="" />
+              </div>
+            </div>
+            <div className='row p-2'>
+              <div className='col-lg-3'>
+                <img width={'100%'} height={'80px'} src="/person13.avif" alt="" />
+              </div>
+              <div className='col-lg-3'>
+                <img width={'100%'} height={'80px'} src="/person14.png" alt="" />
+              </div>
+              <div className='col-lg-3'>
+                <img width={'100%'} height={'80px'} src="/person15.avif" alt="" />
+              </div>
+              <div className='col-lg-3'>
+                <img width={'100%'} height={'80px'} src="/person16.avif" alt="" />
               </div>
             </div>
           </div>
