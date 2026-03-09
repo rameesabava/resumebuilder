@@ -5,7 +5,7 @@ import { BsFillSuitHeartFill } from "react-icons/bs";
 
 function Footer() {
   return (
-    <div style={{ backgroundColor: 'purple', padding:'10px' }} className='text-center text-light'>
+    <div style={{ backgroundColor: '#7b5c44', padding:'10px' }} className='text-center text-light'>
       <h2>Contact Us</h2>
       <p><MdAttachEmail /><span style={{margin:'2px'}}>resumebuilder@gmail.com</span></p>
       <p><FaPhoneAlt /><span style={{margin:'2px'}}>9087654321</span></p>
