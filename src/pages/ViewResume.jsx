@@ -1,12 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaFileDownload } from "react-icons/fa";
 import { IoMdRefresh } from "react-icons/io";
 import { FaBackward } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Preview from '../components/Preview';
 import Edit from '../components/Edit';
+import { getResumeAPI } from '../services/allResumeApiService';
 
 function ViewResume() {
+  const {id} = useParams()
+  //console.log(id);
+const [resumeData,setResumeData]=useState({})
+console.log(resumeData);
+
+useEffect(()=>{
+  getResumeDetails()
+},[])
+
+const getResumeDetails=async ()=>{
+  if(id){
+    const result=await getResumeAPI(id)
+    //console.log(result);
+    setResumeData(result.data)
+    
+  }
+}
+  
   return (
     <div className='container'>
       <div className="row my-5">
@@ -24,7 +43,7 @@ function ViewResume() {
             <Link to={'/form'} className='btn text-success fs-2 me-2'><FaBackward /></Link>
 
           </div>
-          <div className='mt-5'><Preview/></div>
+          <div className='mt-5'><Preview resumeData={resumeData}/></div>
         </div>
         <div className="col-lg-2"></div>
 
