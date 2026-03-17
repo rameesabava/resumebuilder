@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FaFileDownload } from "react-icons/fa";
 import { IoMdRefresh } from "react-icons/io";
 import { FaBackward } from "react-icons/fa";
 import { Link, useParams } from 'react-router-dom';
 import Preview from '../components/Preview';
 import Edit from '../components/Edit';
-import { getResumeAPI } from '../services/allResumeApiService';
+import { downloadResumeAPI, getResumeAPI } from '../services/allResumeApiService';
+import html2canvas from 'html2canvas';
+import jspdf from 'jspdf';
 
 function ViewResume() {
   const {id} = useParams()
   //console.log(id);
 const [resumeData,setResumeData]=useState({})
 console.log(resumeData);
+const previewRef = useRef()
+
 
 useEffect(()=>{
   getResumeDetails()
@@ -25,6 +29,37 @@ const getResumeDetails=async ()=>{
     
   }
 }
+
+const downloadResume=async ()=>{
+  const previewTag = previewRef.current
+  const canvas = await html2canvas(previewTag)
+
+  // to generate short img url
+  canvas.toBlob(blob=>{
+    const shortUrl = URL.createObjectURL(blob)
+    generatePDF(shortUrl)
+  })
+}
+
+const generatePDF = async (resumeImg)=>{
+  const today = new Date()
+  const timeStamp = `${today.toLocaleDateString()}, ${today.toLocaleTimeString()}`
+  const pdf = new jspdf()
+  const imgWidth = pdf.internal.pageSize.getWidth()
+  const imgHeight = pdf.internal.pageSize.getHeight()
+  pdf.addImage(resumeImg,"PNG",0,0,imgWidth,imgHeight)
+  const downloadDetails = {
+    timeStamp,
+    resumeId : id,
+    resumeImg
+  }
+  const result = await downloadResumeAPI(downloadDetails)
+  console.log(result);
+  if(result.status == 201){
+    pdf.save(`${resumeData?.fullName}-resume.pdf`)
+  }
+
+}
   
   return (
     <div className='container'>
@@ -34,7 +69,7 @@ const getResumeDetails=async ()=>{
           {/* icon set */}
           <div className="d-flex justify-content-center align-items-center">
             {/* download */}
-            <button className='btn text-primary fs-2 me-2'><FaFileDownload /></button>
+            <button onClick={downloadResume} className='btn text-primary fs-2 me-2'><FaFileDownload /></button>
             {/* edit */}
             <Edit/>
             {/* history */}
@@ -43,7 +78,7 @@ const getResumeDetails=async ()=>{
             <Link to={'/form'} className='btn text-success fs-2 me-2'><FaBackward /></Link>
 
           </div>
-          <div className='mt-5'><Preview resumeData={resumeData}/></div>
+          <div ref={previewRef} className='p-5'><Preview resumeData={resumeData}/></div>
         </div>
         <div className="col-lg-2"></div>
 
