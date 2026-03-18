@@ -71,7 +71,7 @@ const generatePDF = async (resumeImg)=>{
             {/* download */}
             <button onClick={downloadResume} className='btn text-primary fs-2 me-2'><FaFileDownload /></button>
             {/* edit */}
-            <Edit/>
+            <Edit resumeData={resumeData} setResumeData={setResumeData}/>
             {/* history */}
             <Link to={'/downloads'} className='btn text-danger fs-2 me-2'><IoMdRefresh /></Link>
             {/* back */}

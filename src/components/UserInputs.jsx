@@ -18,11 +18,11 @@ import { addResumeAPI } from '../services/allResumeApiService';
 
 const steps = ['Basic Informations', 'Contact Details', 'Educational Details', 'Review & Submit'];
 
-function UserInputs({resumeData, setResumeData}) {
+function UserInputs({ resumeData, setResumeData }) {
 
     const navigate = useNavigate()   //hook to redirect from component
     const [activeStep, setActiveStep] = React.useState(0);
-    
+
 
     console.log(resumeData);
 
@@ -108,18 +108,18 @@ function UserInputs({resumeData, setResumeData}) {
     }
 
     // api call
-    const handleAddResume = async ()=>{
-        const {fullName,location,job,email,phone,linkedin,github,degree,university,passOut,skills,summary}=resumeData
-        if(fullName && location && job && email && phone && linkedin && github && degree && university && passOut && skills.length>0 && summary){
-            const response=await addResumeAPI(resumeData)
+    const handleAddResume = async () => {
+        const { fullName, location, job, email, phone, linkedin, github, degree, university, passOut, skills, summary } = resumeData
+        if (fullName && location && job && email && phone && linkedin && github && degree && university && passOut && skills.length > 0 && summary) {
+            const response = await addResumeAPI(resumeData)
             console.log(response);
-            if(response.status==201){
+            if (response.status == 201) {
                 alert("Resume added successfully")
-                const resumeId=response.data.id
+                const resumeId = response.data.id
                 // navigate to view resume
                 navigate(`/resume/${resumeId}/view`)
             }
-        }else{
+        } else {
             alert("Please fill the form completely")
         }
     }

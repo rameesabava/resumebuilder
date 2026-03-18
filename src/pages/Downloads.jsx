@@ -2,23 +2,28 @@ import React, { useEffect, useState } from 'react'
 import { IoArrowBackSharp } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import { MdDelete } from "react-icons/md";
-import { getDownloadResumeAPI } from '../services/allResumeApiService';
+import { deleteDownloadResumeAPI, getDownloadResumeAPI } from '../services/allResumeApiService';
 
 function Downloads() {
 
   const [allDownloads, setAllDownloads] = useState([])
 
   console.log(allDownloads);
-  
-  useEffect(()=>{
-    getAllDownloads()
-  },[])
 
-  const getAllDownloads = async()=>{
+  useEffect(() => {
+    getAllDownloads()
+  }, [])
+
+  const getAllDownloads = async () => {
     const result = await getDownloadResumeAPI()
-    if(result.status==200){
+    if (result.status == 200) {
       setAllDownloads(result.data)
     }
+  }
+
+  const removeDownload = async (id) => {
+    await deleteDownloadResumeAPI(id)
+    getAllDownloads()
   }
   return (
     <div className='container'>
@@ -27,18 +32,27 @@ function Downloads() {
         <Link to='/forms'><IoArrowBackSharp />Back</Link>
       </div>
       <div className='row mb-5'>
-        <div className="col-lg-4">
-          <div style={{ height: '400px' }} className="shadow p-3 rounded">
-            <div className="d-flex justify-content-between">
-              <h5>Review at: time</h5>
-              <button className='btn fs-5 text-danger'><MdDelete /></button>
+        {
+          allDownloads.length > 0 ?
+            allDownloads.map(resume => (
+              <div key={resume?.id} className="col-lg-4 mb-3">
+                <div style={{ height: '300px' }} className="shadow p-3 rounded">
+                  <div className="d-flex justify-content-between align-items-center">
+                    <h5>Review at: {resume?.timeStamp}</h5>
+                    <button onClick={() => removeDownload(resume?.id)} className='btn fs-5 text-danger'><MdDelete /></button>
 
-            </div>
-            <div className='mt-3 text-center'>
-              <img height={'300px'} width={'200px'} src="https://marketplace.canva.com/EAFRuCp3DcY/1/0/1131w/canva-black-white-minimalist-cv-resume-f5JNR-K5jjw.jpg" alt="cv" />
-            </div>
-          </div>
-        </div>
+                  </div>
+                  <div className='mt-3 text-center'>
+                    <Link to={`/resume/${resume?.resumeId}/view`}>
+                      <img height={'200px'} width={'200px'} src={resume?.resumeImg} alt="cv" />
+
+                    </Link>                  </div>
+                </div>
+              </div>
+            ))
+            :
+            <div className='text-center fw-bolder my-5'>No Resumes are downloaded yet!!!...</div>
+        }
       </div>
     </div>
   )
