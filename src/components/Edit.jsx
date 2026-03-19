@@ -7,6 +7,7 @@ import { MdEditDocument } from "react-icons/md";
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { FaXmark } from 'react-icons/fa6';
 import jobTypes from '../assets/jobRole.json'
+import { editResumeAPI } from '../services/allResumeApiService';
 
 
 const style = {
@@ -26,7 +27,7 @@ const style = {
 
 function Edit({ resumeData, setResumeData }) {
 
-    const skillRef=useRef()
+    const skillRef = useRef()
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -36,17 +37,31 @@ function Edit({ resumeData, setResumeData }) {
         setResumeData({ ...resumeData, skills: resumeData?.skills?.filter(item => item != skill) })
     }
 
-    const addSkill=(skill)=>{
-        if(skill){
-            if(resumeData?.skills.map(item=>item.toLowerCase())?.includes(skill.toLowerCase())){
+    const addSkill = (skill) => {
+        if (skill) {
+            if (resumeData?.skills.map(item => item.toLowerCase())?.includes(skill.toLowerCase())) {
                 alert("Given skill is already available. Add another!!!")
-            }else{
-                setResumeData({...resumeData,skills:[...resumeData?.skills,skill]})
+            } else {
+                setResumeData({ ...resumeData, skills: [...resumeData?.skills, skill] })
             }
             skillRef.current.value = ""
 
-        }else{
+        } else {
             alert("Input valid skill!!!!")
+        }
+    }
+
+    const handleEditResume = async () => {
+        const { fullName, location, job, email, phone, linkedin, github, degree, university, passOut, skills, summary } = resumeData
+        if (fullName && location && job && email && phone && linkedin && github && degree && university && passOut && skills.length > 0 && summary) {
+            const response = await editResumeAPI(resumeData?.id,resumeData)
+            console.log(response);
+            if (response.status == 200) {
+                alert("Resume updated successfully")
+                handleClose()
+            }
+        } else {
+            alert("Please fill the form completely")
         }
     }
     return (
@@ -115,7 +130,7 @@ function Edit({ resumeData, setResumeData }) {
                             <h3>Skills</h3>
                             <div className='p-3 d-flex justify-content-center align-items-center'>
                                 <input ref={skillRef} type="text" placeholder='Add Skill' className='form-control' />
-                                <Button onClick={()=>addSkill(skillRef.current.value)} variant='text'>Add</Button>
+                                <Button onClick={() => addSkill(skillRef.current.value)} variant='text'>Add</Button>
 
                             </div>
                             {/* Added skills */}
@@ -139,7 +154,7 @@ function Edit({ resumeData, setResumeData }) {
                             </div>
                         </div>
                         {/* update */}
-                        <button className='btn btn-primary'>Update</button>
+                        <button onClick={handleEditResume} className='btn btn-primary'>Update</button>
                     </Box>
                 </Box>
             </Modal>

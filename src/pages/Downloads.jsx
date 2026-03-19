@@ -29,7 +29,7 @@ function Downloads() {
     <div className='container'>
       <div className='d-flex my-5 justify-content-center align-items-center'>
         <h1>Downloaded Resume History</h1>
-        <Link to='/forms'><IoArrowBackSharp />Back</Link>
+        <Link to='/form'><IoArrowBackSharp />Back</Link>
       </div>
       <div className='row mb-5'>
         {
